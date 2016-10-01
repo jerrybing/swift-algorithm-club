@@ -1,6 +1,18 @@
 ![Swift Algorithm Club](/Images/SwiftAlgorithm-410-transp.png)
 
+
+
 # Welcome to the Swift Algorithm Club!
+
+**备注：**
+
+- 按照自己的风格进行翻译给自己看，如您不幸看到。请直接阅读原版。
+- 实践费曼技巧，个别地方添加自己的理解，可能不全面，不严谨
+- 非科班出身，专业名词不确定的 采用英文
+- 注意：17禁 O(∩_∩)O~
+
+****
+
 # 欢迎来到 Swfit算法俱乐部
 
 在这里，你可以找到很多采用SWift实现的算法与数据结构，并且详细的阐述了它们是如何工作的。
@@ -20,7 +32,8 @@
 
 [为什么学习算法?](Why Algorithms.markdown)少年，我们不虚它！
 
-[Big-O notation](Big-O Notation.markdown). 如果你不知道那些大牛口中**O(n)**是什么鬼，请看这里！
+[Big-O notation](Big-O Notation.markdown). 如果你不知道那些大牛口中**O(n)**是什么鬼，请看这里
+
 [Algorithm design techniques](Algorithm Design.markdown). 如何设计实现自己的算法
 
 [How to contribute](How to Contribute.markdown). Report an issue to leave feedback, or submit a pull request.

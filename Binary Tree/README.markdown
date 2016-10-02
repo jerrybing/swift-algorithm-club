@@ -1,22 +1,32 @@
 # Binary Tree
 
-A binary tree is a [tree](../Tree/) where each node has 0, 1, or 2 children. This is a binary tree:
+A binary tree is a [tree](../Tree/) where each node has 0, 1, or 2 children. 
+
+如：
 
 ![A binary tree](Images/BinaryTree.png)
 
-The child nodes are usually called the *left* child and the *right* child. If a node doesn't have any children, it's called a *leaf* node. The *root* is the node at the very top of the tree (programmers like their trees upside down).
+
+
+子节点通常被称为left child 和right child，如果一个node没有任何的children，叫做一个leaf node。，root是最为顶端的node。【编程的世界里，我们喜欢它们上下对吊着看】
 
 Often nodes will have a link back to their parent but this is not strictly necessary.
 
+node通常都有一种连接回它们的parent，但并未严格必要。
+
 Binary trees are often used as [binary search trees](../Binary Search Tree/). In that case, the nodes must be in a specific order (smaller values on the left, larger values on the right). But this is not a requirement for all binary trees.
 
-For example, here is a binary tree that represents a sequence of arithmetical operations, `(5 * (a - 10)) + (-4 * (3 / b))`:
+Binary trees 经常被用来  [binary search trees](../Binary Search Tree/).，在这种情况下，nodes必须有一个明确的排序，小的数值在左，大的在右，但是并不是所有binary tree都要求这个样子。
+
+
+
+例如它表示一个一个运算式子 `(5 * (a - 10)) + (-4 * (3 / b))`:
 
 ![A binary tree](Images/Operations.png)
 
 ## The code
 
-Here's how you could implement a general-purpose binary tree in Swift:
+在swift中实现一个 general-purpose binary tree
 
 ```swift
 public indirect enum BinaryTree<T> {
@@ -25,7 +35,7 @@ public indirect enum BinaryTree<T> {
 }
 ```
 
-As an example of how to use this, let's build that tree of arithmetic operations:
+一个如何去使用它的例子，首先我们依据这个tree构建出来一个算数表达式
 
 ```swift
 // leaf nodes
@@ -49,9 +59,11 @@ let timesRight = BinaryTree.Node(minus4, "*", divide3andB)
 let tree = BinaryTree.Node(timesLeft, "+", timesRight)
 ```
 
-You need to build up the tree in reverse, starting with the leaf nodes and working your way up to the top.
+你需要从反向的构建这个树，从leaf node开始 一直到root node
 
 It will be useful to add a `description` method so you can print the tree:
+
+增加一个`description` 方法来阐述tree
 
 ```swift
 extension BinaryTree: CustomStringConvertible {
@@ -67,11 +79,10 @@ extension BinaryTree: CustomStringConvertible {
 }
 ```
 
-If you `print(tree)` you should see something like this:
+ `print(tree)` 可以看到：
 
 	value: +, left = [value: *, left = [value: 5, left = [], right = []], right = [value: -, left = [value: a, left = [], right = []], right = [value: 10, left = [], right = []]]], right = [value: *, left = [value: -, left = [], right = [value: 4, left = [], right = []]], right = [value: /, left = [value: 3, left = [], right = []], right = [value: b, left = [], right = []]]]
-
-With a bit of imagination, you can see the tree structure. ;-) It helps if you indent it:
+发挥想象力的话，你可以想象成树的样子。缩进一下，很有帮助。
 
 	value: +, 
 		left = [value: *, 
@@ -88,6 +99,8 @@ With a bit of imagination, you can see the tree structure. ;-) It helps if you i
 				right = [value: b, left = [], right = []]]]
 
 Another useful method is counting the number of nodes in the tree:
+
+另外很有用处的用来count tree上的nodes
 
 ```swift
   public var count: Int {

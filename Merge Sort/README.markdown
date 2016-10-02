@@ -1,41 +1,47 @@
 # Merge Sort
 
-Goal: Sort an array from low to high (or high to low)
+目标：sort一个array,从低到高，或者从高到低。
 
-Invented in 1945 by John von Neumann, merge sort is a fairly efficient sorting algorithm with a best, worst, and average time complexity of **O(n log n)**.
+ 1945 John von Neumann 提出！ merge sort在最好最差以及平均的复杂度为**O(n log n)**.
+
+
 
 The idea behind merge sort is to **divide and conquer**: to divide a big problem into smaller problems and solving many small problems instead of solving a big one. I think of merge sort as **split first** and **merge after**. 
 
-Assume you're given an array of *n* numbers and you need to put them in the right order. The merge sort algorithm works as follows:
+merger sort的核心精华在于 divide and conquer || 分开 占领 。九头蛇一起打，打不过，那就一个头一个头的来打。将一个复杂的大问题转变为小的问题。简单的说merge sort就是先分开，然后再合体 as split first and merge after
 
-- Put the numbers in a pile. The pile is unsorted.
-- Split the pile into 2. Now you have **two unsorted piles** of numbers.
-- Keep splitting the resulting piles until you can't split anymore. In the end, you will have *n* piles with 1 number in each pile.
-- Begin to **merge** the piles together by sequentially pairing a pile with another pile. During each merge, you put the contents in sorted order. This is fairly easy because each individual pile is already sorted.
+给你一个装了n个数字的array，现在给你一个排序他们的任务。sort merge算法的是这样工作的。
 
-## An example
+- 把数字放到pile上，现在pile上的尚未排序
+- 把pile的拆分为两半，现在你就拥有两个为排序的 array，在pile上
+- 重复以上的操作，直到有了n个 pile上，每个pile只有一个数字
+- 还是对每一个pile进行merge了，每一次的merge的同时，都进行相应的排序，这样的容易的原因是因为每一个独立的pile已经被排序了
 
-### Splitting
+## 例子
 
-Let's say the numbers to sort are `[2, 1, 5, 4, 9]`. This is your unsorted pile. The goal is to keep splitting the pile until you can't split anymore. 
+### 拆分Splitting
 
-First, split the array into two halves: `[2, 1]` and `[5, 4, 9]`. Can you keep splitting them? Yes you can!
+现在我们要去排序`【2，1，5，4，9】`，这是你尚未排序的pile，现在我们要做的就是拆分它知道你拆不了为止。
 
-Focus on the left pile. `[2, 1]` will split into `[2]` and `[1]`. Can you keep splitting them? No. Time to check the other pile.
+首先，你拆成了两个部分，可以继续拆 `[2, 1]` and `[5, 4, 9]`. 可以继续拆
 
-`[5, 4, 9]` splits to `[5]` and `[4, 9]`. Unsurprisingly, `[5]` can't be split anymore, but `[4, 9]` splits into `[4]` and `[9]`. 
+我们先看左边的的部分 `[2, 1]` ， 可以继续拆分为`[2]` and `[1]`，此时无法继续拆分了
 
-The splitting process ends with the following piles: `[2]` `[1]` `[5]` `[4]` `[9]`. Notice that each pile consists of just one element.
+`[5, 4, 9]` => `[5]`  + `[4, 9]` 接着 `[4, 9]` => `[4]` + `[9]`. 
+
+`【2，1，5，4，9】` => `[2]` `[1]` `[5]` `[4]` `[9]`. 
 
 ### Merging
 
-Now that you've split the array, you'll **merge** the piles together **while sorting them**. Remember, the idea is to solve many small problems rather than a big one. For each merge iteration you'll only be concerned at merging one pile with another.
+拆分完之后，现在你可以对他们进行merge的同时并**排序**它们，还记得前面提到过的吗？我们要复杂的问题拆分为小的问题去解决，因为我们每一次的merge都**将只关注merge一个pile**
 
-Given the piles `[2]` `[1]` `[5]` `[4]` `[9]`, the first pass will result in `[1, 2]` and `[4, 5]` and `[9]`. Since `[9]` is the odd one out, you can't merge it with anything during this pass. 
+ `[2]` `[1]` `[5]` `[4]` `[9]`,=>`[1, 2]` and `[4, 5]` and `[9]`.
 
-The next pass will merge `[1, 2]` and `[4, 5]` together. This results in `[1, 2, 4, 5]`, with the `[9]` left out again since it's the odd one out. 
+ 因为 `[9]` is the odd one out, 所以在这个操作过程中你无法对其进行任何merge操作了。
 
-You're left with only two piles and `[9]` finally gets its chance to merge, resulting in the sorted array `[1, 2, 4, 5, 9]`. 
+下一个merge就是将`[1, 2]`  +`[4, 5] ` =>`[1, 2, 4, 5]`
+
+你现在只有两个pile和【9】，此时终于可以对它进排序操作了 `[1, 2, 4, 5, 9]`. 
 
 ## Top-down implementation
 
@@ -123,33 +129,33 @@ As an example of how `merge()` works, suppose that we have the following piles: 
 
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ ]
-      l              r
+	  l              r
 
 The left index, here represented as `l`, points at the first item from the left pile, `1`. The right index, `r`, points at `3`. Therefore, the first item we add to `orderedPile` is `1`. We also move the left index `l` to the next item.
 
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ 1 ]
-      -->l           r
+	  -->l           r
 
 Now `l` points at `7` but `r` is still at `3`. We add the smallest item to the ordered pile, so that's `3`. The situation is now:
 
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ 1, 3 ]
-         l           -->r
+	     l           -->r
 
 This process repeats. At each step we pick the smallest item from either `leftPile` or `rightPile` and add it to `orderedPile`:
 
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ 1, 3, 6 ]
-         l              -->r
+	     l              -->r
 	
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ 1, 3, 6, 7 ]
-         -->l              r
+	     -->l              r
 	
 	leftPile       rightPile       orderedPile
 	[ 1, 7, 8 ]    [ 3, 6, 9 ]     [ 1, 3, 6, 7, 8 ]
-            -->l           r
+	        -->l           r
 
 Now there are no more items in the left pile. We simply add the remaining items from the right pile, and we're done. The merged pile is `[ 1, 3, 6, 7, 8, 9 ]`. 
 
